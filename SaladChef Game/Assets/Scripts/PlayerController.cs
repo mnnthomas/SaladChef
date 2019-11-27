@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float m_Speed = default;
@@ -11,36 +10,32 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private string m_ActionKey = default;
 
     private bool mCanMove;
-    private Queue<GameObject> mItemsInHand = new Queue<GameObject>();
+    private MovementController mMovementController;
 
-    private CharacterController mCharController;
+    private Queue<GameObject> mVegetablesInHand = new Queue<GameObject>();
+    private GameObject mSaladInHand;
 
     void Start()
     {
-        mCharController = GetComponent<CharacterController>();
-        mCanMove = true;
+        mMovementController = GetComponent<MovementController>();
+        if(mMovementController)
+            mMovementController.InitMovement(m_Speed, m_HorizontalAxis, m_VerticalAxis);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        HandlePlayerInputs();
+        HandleInputAction();
     }
 
-    void HandlePlayerInputs()
+    private void HandleInputAction()
     {
-        if(mCanMove)
-        {
-            Vector3 movementVector = new Vector3(Input.GetAxis(m_HorizontalAxis), 0, Input.GetAxis(m_VerticalAxis)) * m_Speed * Time.deltaTime;
-            mCharController.Move(movementVector);
-        }
-
-        if(Input.GetButtonDown(m_ActionKey))
-            OnActionKey();
+        if (Input.GetButtonDown(m_ActionKey))
+            OnActionButtonClicked();
     }
 
-    void OnActionKey()
+    private void OnActionButtonClicked()
     {
-        Debug.Log(name+"Action Key Pressed");
+        Debug.Log(name + " Action click");
     }
+
 }
