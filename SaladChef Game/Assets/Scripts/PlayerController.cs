@@ -94,6 +94,14 @@ namespace SaladChef
                     OnDroppedItemInChoppingBoard(mVegetablesInHand.Peek());
                     mCurCollider.GetComponent<IDroppable>().OnDropItem(mVegetablesInHand.Dequeue());
                 }
+                else if(mCurCollider.GetComponent<TrashCan>())
+                {
+                    if (mVegetablesInHand.Count > 0)
+                    {
+                        DropVegetable(mVegetablesInHand.Peek());
+                        mCurCollider.GetComponent<IDroppable>().OnDropItem(mVegetablesInHand.Dequeue());
+                    }
+                }
 
             }
         }
@@ -112,12 +120,16 @@ namespace SaladChef
 
         private void OnDroppedItemInChoppingBoard(VegetableData veg)
         {
+            DropVegetable(veg);
+            StartCoroutine("PauseForSeconds", veg._CutDuration);
+        }
+
+        private void DropVegetable(VegetableData veg)
+        {
             Destroy(mVegetableObjectsInHand[0]);
             mVegetableObjectsInHand.RemoveAt(0);
             if (mVegetableObjectsInHand.Count > 0)
                 mVegetableObjectsInHand[0].transform.localPosition = Vector3.up * 1.5f;
-
-            StartCoroutine("PauseForSeconds", veg._CutDuration);
         }
 
         IEnumerator PauseForSeconds(float seconds)
