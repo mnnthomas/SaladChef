@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
 
@@ -19,11 +20,22 @@ namespace SaladChef
         [SerializeField] private Text m_Timer = default;
         [SerializeField] private Text m_Score = default;
 
+        [Header("-- Items carry variable --")]
+        [SerializeField] private int m_MaxVegetableInHand = default;
+        [SerializeField] private int m_MaxSaladInHand = default;
+
+        private bool mCanInteract = true;
         private MovementController mMovementController;
-        private Queue<GameObject> mVegetablesInHand = new Queue<GameObject>();
+        private Queue<VegetableData> mVegetablesInHand = new Queue<VegetableData>();
+        private List<GameObject> mVegetableObjectsInHand = new List<GameObject>();
         private GameObject mSaladInHand;
-        private string mTriggerTag;
         private bool mEndTimer;
+        private Collider mCurCollider;
+        private bool mCanPickVegetable
+        {
+            get { return mVegetablesInHand.Count < 2 && mSaladInHand == null; }
+        }
+
 
         void Start()
         {
@@ -34,7 +46,9 @@ namespace SaladChef
 
         private void Update()
         {
-            HandleInputAction();
+            if(mCanInteract)
+                HandleInputAction();
+
             UpdateTimer();
         }
 
@@ -63,7 +77,60 @@ namespace SaladChef
 
         private void OnActionButtonClicked()
         {
-            Debug.Log(name + " Action click");
+            if(mCurCollider)
+            {
+                if (mCurCollider.GetComponent<VegetableSpawn>() && mCanPickVegetable)
+                {
+                    VegetableData pickedVeg = mCurCollider.GetComponent<IPickable>().PickItem() as VegetableData;
+                    if(pickedVeg != null)
+                    {
+                        mVegetablesInHand.Enqueue(pickedVeg);
+                        OnVegetablePicked(pickedVeg);
+                    }
+                }
+                else if(mCurCollider.GetComponent<ChoppingBoard>() && !mCurCollider.GetComponent<ChoppingBoard>()._IsBusy && mSaladInHand == null && mVegetablesInHand.Count > 0)
+                {
+                    Debug.Log("Dropping item >>> " + mVegetablesInHand.Peek()._Name);
+                    OnDroppedItemInChoppingBoard(mVegetablesInHand.Peek());
+                    mCurCollider.GetComponent<IDroppable>().OnDropItem(mVegetablesInHand.Dequeue());
+                }
+
+            }
+        }
+
+        private void OnVegetablePicked(VegetableData veg)
+        {
+            if (veg._Object)
+            {
+                mVegetableObjectsInHand.Add(Instantiate(veg._Object, transform));
+                if (mVegetablesInHand.Count == 1)
+                    mVegetableObjectsInHand[0].transform.localPosition = Vector3.up * 1.5f;
+                else
+                    mVegetableObjectsInHand[1].transform.localPosition = Vector3.up * 2.5f;
+            }
+        }
+
+        private void OnDroppedItemInChoppingBoard(VegetableData veg)
+        {
+            Destroy(mVegetableObjectsInHand[0]);
+            mVegetableObjectsInHand.RemoveAt(0);
+            if (mVegetableObjectsInHand.Count > 0)
+                mVegetableObjectsInHand[0].transform.localPosition = Vector3.up * 1.5f;
+
+            StartCoroutine("PauseForSeconds", veg._CutDuration);
+        }
+
+        IEnumerator PauseForSeconds(float seconds)
+        {
+            AllowPlayerInputs(false);
+            yield return new WaitForSeconds(seconds);
+            AllowPlayerInputs(true);
+        }
+
+        private void AllowPlayerInputs(bool value)
+        {
+            mMovementController.Pause(!value);
+            mCanInteract = value;
         }
 
         private void OnTimerEnd()
@@ -73,12 +140,12 @@ namespace SaladChef
 
         private void OnTriggerEnter(Collider other)
         {
-            mTriggerTag = other.tag;
+            mCurCollider = other;
         }
 
         private void OnTriggerExit(Collider other)
         {
-            mTriggerTag = string.Empty;
+            mCurCollider = null;
         }
     }
 }

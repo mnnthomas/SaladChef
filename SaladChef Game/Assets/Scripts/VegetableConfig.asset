@@ -16,18 +16,30 @@ MonoBehaviour:
   - _Name: Carrot
     _Object: {fileID: 1356042431659478460, guid: 7c4e239905bfb53458f37600bb157ed9,
       type: 3}
+    _CutObject: {fileID: 0}
+    _CutDuration: 3
   - _Name: Onion
     _Object: {fileID: 7325220502025831238, guid: fe3fb6111ba772a44988cddfb366bab1,
       type: 3}
+    _CutObject: {fileID: 0}
+    _CutDuration: 3
   - _Name: Tomato
     _Object: {fileID: 3769584550662330819, guid: 52f106b28bdfe83408db8716b1eedc58,
       type: 3}
+    _CutObject: {fileID: 0}
+    _CutDuration: 3
   - _Name: Cucumber
     _Object: {fileID: 2814923619138326917, guid: 1f92677fee2829749bfbea60cd9a1798,
       type: 3}
+    _CutObject: {fileID: 0}
+    _CutDuration: 3
   - _Name: Cabbage
     _Object: {fileID: 463971305148490528, guid: 7b137ed7c98eda74d91d7d5a96648929,
       type: 3}
+    _CutObject: {fileID: 0}
+    _CutDuration: 3
   - _Name: Potato
     _Object: {fileID: 1396122616184264856, guid: cfedc98f291f97a4089e0aa93e081937,
       type: 3}
+    _CutObject: {fileID: 0}
+    _CutDuration: 3

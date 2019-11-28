@@ -5,26 +5,28 @@ using UnityEngine;
 namespace SaladChef
 {
     [System.Serializable]
-    public class Vegetable
+    public class VegetableData
     {
         public string _Name;
         public GameObject _Object;
+        public GameObject _CutObject;
+        public float _CutDuration;
     }
 
     [CreateAssetMenu(menuName = "Vegetable configuration")]
     public class VegetableConfig : ScriptableObject
     {
-        [SerializeField] private List<Vegetable> m_Vegetables = new List<Vegetable>();
+        [SerializeField] private List<VegetableData> m_Vegetables = new List<VegetableData>();
 
-        public Vegetable GetVegetableByName(string name)
+        public VegetableData GetVegetableByName(string name)
         {
             return m_Vegetables.Find(x => x._Name == name);
         }
 
-        public List<Vegetable> GetRandomCombination(int count)
+        public List<VegetableData> GetRandomCombination(int count)
         {
-            List<Vegetable> randomList = new List<Vegetable>(count);
-            List<Vegetable> mCurVegetables = m_Vegetables;
+            List<VegetableData> randomList = new List<VegetableData>(count);
+            List<VegetableData> mCurVegetables = m_Vegetables;
 
             if (count > mCurVegetables.Count)
                 return null;

@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace SaladChef
 {
-    public class VegetableSpawn : MonoBehaviour
+    public class VegetableSpawn : MonoBehaviour, IPickable
     {
         [SerializeField] private string m_VegetableName = default;
         [SerializeField] private Transform m_SpawnTransform = default;
 
-        private Vegetable mVegetable;
+        private VegetableData mVegetable;
 
         private void Start()
         {
@@ -19,6 +19,11 @@ namespace SaladChef
                 GameObject obj = Instantiate(mVegetable._Object, transform);
                 obj.transform.position = m_SpawnTransform.position;
             }
+        }
+
+        public object PickItem()
+        {
+            return mVegetable;
         }
     }
 }
