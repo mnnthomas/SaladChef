@@ -2,37 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class Vegetables
+namespace SaladChef
 {
-    public string _Name;
-    public GameObject _Object;
-}
-
-[CreateAssetMenu(menuName = "Vegetable configuration")]
-public class VegetableConfig : ScriptableObject
-{
-    [SerializeField] private List<Vegetables> m_Vegetables = new List<Vegetables>();
-
-    public GameObject GetObjectByName(string name)
+    [System.Serializable]
+    public class Vegetable
     {
-        return m_Vegetables.Find(x => x._Name == name)._Object;
+        public string _Name;
+        public GameObject _Object;
     }
 
-    public List<Vegetables> GetRandomCombination(int count)
+    [CreateAssetMenu(menuName = "Vegetable configuration")]
+    public class VegetableConfig : ScriptableObject
     {
-        List<Vegetables> randomList = new List<Vegetables>(count);
-        List<Vegetables> mCurVegetables = m_Vegetables;
+        [SerializeField] private List<Vegetable> m_Vegetables = new List<Vegetable>();
 
-        if (count > mCurVegetables.Count)
-            return null;
-
-        for (int i = 0; i < count; i++)
+        public Vegetable GetVegetableByName(string name)
         {
-            int random = Random.Range(0, mCurVegetables.Count);
-            randomList.Add(mCurVegetables[random]);
-            mCurVegetables.RemoveAt(random);
+            return m_Vegetables.Find(x => x._Name == name);
         }
-        return randomList;
+
+        public List<Vegetable> GetRandomCombination(int count)
+        {
+            List<Vegetable> randomList = new List<Vegetable>(count);
+            List<Vegetable> mCurVegetables = m_Vegetables;
+
+            if (count > mCurVegetables.Count)
+                return null;
+
+            for (int i = 0; i < count; i++)
+            {
+                int random = Random.Range(0, mCurVegetables.Count);
+                randomList.Add(mCurVegetables[random]);
+                mCurVegetables.RemoveAt(random);
+            }
+            return randomList;
+        }
     }
 }
