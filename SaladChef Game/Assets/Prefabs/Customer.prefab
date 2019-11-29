@@ -341,7 +341,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7126532547677352525}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 1, z: 1}
   m_Children:
@@ -349,7 +349,7 @@ RectTransform:
   - {fileID: 7867849733658780942}
   m_Father: {fileID: 7126532547996513927}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0.75}
@@ -524,7 +524,7 @@ MonoBehaviour:
   m_ImagePanel: {fileID: 56970358227544788}
   m_WaitDurationPerIngredient: 15
   m_PowerUpSpawnPercentage: 70
-  m_AngryMultiplier: 2
+  m_AngryMultiplier: 1.5
   m_minIngredient: 2
   m_maxIngredient: 3
 --- !u!1 &7126532548359425639

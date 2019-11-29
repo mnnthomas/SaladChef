@@ -34,7 +34,7 @@ namespace SaladChef
         private Collider mCurCollider;
         private bool mCanPickVegetable
         {
-            get { return mVegetablesInHand.Count < 2 && mSaladInHand == null; }
+            get { return mVegetablesInHand.Count < m_MaxVegetableInHand && mSaladInHand == null; }
         }
 
 

@@ -45,15 +45,16 @@ namespace SaladChef
 
         IEnumerator StartRequestTimer()
         {
-            float value;
-            while(m_Slider.value <= 1)
+            while(m_Slider.value <= m_Slider.maxValue)
             {
-                value = Time.deltaTime / mCurRequestDuration;
-                m_Slider.value += value;
-                yield return null;
+                if (!mIsAngry)
+                    m_Slider.value += Time.deltaTime;
+                else
+                    m_Slider.value += Time.deltaTime * m_AngryMultiplier;
+
+                yield return new WaitForEndOfFrame();
             }
         }
-
 
         public void OnDropItem(object droppedItem)
         {
