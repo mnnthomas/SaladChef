@@ -49,6 +49,7 @@ namespace SaladChef
             m_Slider.maxValue = mCurRequestDuration;
             m_Slider.value = 0;
             GetComponent<Renderer>().material.SetColor("_Color", Color.white);
+            mIsAngry = false;
 
             if (mCurRequestCoroutine != null)
                 StopCoroutine(mCurRequestCoroutine);
