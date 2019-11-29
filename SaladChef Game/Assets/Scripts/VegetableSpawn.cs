@@ -14,7 +14,7 @@ namespace SaladChef
         private void Start()
         {
             mVegetable = GameManager.pInstance._VegetableConfig.GetVegetableByName(m_VegetableName);
-            if (mVegetable._Object)
+            if (mVegetable != null && mVegetable._Object)
             {
                 GameObject obj = Instantiate(mVegetable._Object, transform);
                 obj.transform.position = m_SpawnTransform.position;

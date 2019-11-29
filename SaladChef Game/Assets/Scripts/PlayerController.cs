@@ -24,6 +24,7 @@ namespace SaladChef
         [SerializeField] private int m_MaxVegetableInHand = default;
         [SerializeField] private int m_MaxSaladInHand = default;
 
+        private bool mInitialized;
         private bool mCanInteract = true;
         private MovementController mMovementController;
         private Queue<VegetableData> mVegetablesInHand = new Queue<VegetableData>();
@@ -46,7 +47,7 @@ namespace SaladChef
 
         private void Update()
         {
-            if(mCanInteract)
+            if (mCanInteract)
                 HandleInputAction();
 
             UpdateTimer();
@@ -79,6 +80,7 @@ namespace SaladChef
         {
             if(mCurCollider)
             {
+                //Condition to check and pick item from VegetableSpawn
                 if (mCurCollider.GetComponent<VegetableSpawn>() && mCanPickVegetable)
                 {
                     VegetableData pickedVeg = mCurCollider.GetComponent<IPickable>().PickItem() as VegetableData;
@@ -88,12 +90,14 @@ namespace SaladChef
                         OnVegetablePicked(pickedVeg);
                     }
                 }
-                else if(mCurCollider.GetComponent<ChoppingBoard>() && !mCurCollider.GetComponent<ChoppingBoard>()._IsBusy && mSaladInHand == null && mVegetablesInHand.Count > 0)
+                //Condition to drop a vegetable to chopping board
+                else if (mCurCollider.GetComponent<ChoppingBoard>() && !mCurCollider.GetComponent<ChoppingBoard>()._IsBusy && mSaladInHand == null && mVegetablesInHand.Count > 0)
                 {
                     Debug.Log("Dropping item >>> " + mVegetablesInHand.Peek()._Name);
                     OnDroppedItemInChoppingBoard(mVegetablesInHand.Peek());
                     mCurCollider.GetComponent<IDroppable>().OnDropItem(mVegetablesInHand.Dequeue());
                 }
+                //Condition to drop an item to TrashCan
                 else if(mCurCollider.GetComponent<TrashCan>())
                 {
                     if (mVegetablesInHand.Count > 0)

@@ -11,6 +11,30 @@ namespace SaladChef
         public GameObject _Object;
         public GameObject _CutObject;
         public float _CutDuration;
+        public Sprite _Sprite;
+    }
+
+    [System.Serializable]
+    public class Salad
+    {
+        public List<VegetableData> _Ingredients = new List<VegetableData>();
+
+        public Salad()
+        {
+
+        }
+
+        public void AddIngredients(VegetableData vegData)
+        {
+            _Ingredients.Add(vegData);
+        }
+
+        public bool CompareSalad(List<VegetableData> saladList)
+        {
+            if (this.Equals(saladList))
+                return true;
+            return false;
+        }
     }
 
     [CreateAssetMenu(menuName = "Vegetable configuration")]
@@ -23,21 +47,37 @@ namespace SaladChef
             return m_Vegetables.Find(x => x._Name == name);
         }
 
-        public List<VegetableData> GetRandomCombination(int count)
+        public Salad GetRandomSalad(int count)
         {
-            List<VegetableData> randomList = new List<VegetableData>(count);
-            List<VegetableData> mCurVegetables = m_Vegetables;
-
-            if (count > mCurVegetables.Count)
-                return null;
+            Salad randomSalad = new Salad();
+            List<int> randoms = GetNonRepetableRandom(count, 0, m_Vegetables.Count-1);
 
             for (int i = 0; i < count; i++)
-            {
-                int random = Random.Range(0, mCurVegetables.Count);
-                randomList.Add(mCurVegetables[random]);
-                mCurVegetables.RemoveAt(random);
-            }
-            return randomList;
+                randomSalad.AddIngredients(m_Vegetables[randoms[i]]);
+
+            return randomSalad;
         }
+
+        public List<int> GetNonRepetableRandom(int count, int minValue, int maxValue)
+        {
+            if (count > maxValue - minValue)
+                return null;
+
+            List<int> nonRepetableRandom = new List<int>(count);
+            List<int> curValues = new List<int>();
+
+            for(int i = 0; i <= maxValue - minValue; i++)
+                curValues.Add(minValue + i);
+
+            for(int i = 0; i < count; i ++)
+            {
+                int random = Random.Range(0, curValues.Count);
+                nonRepetableRandom.Add(curValues[random]);
+                curValues.RemoveAt(random);
+            }
+
+            return nonRepetableRandom;
+        }
+
     }
 }

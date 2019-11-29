@@ -14,6 +14,7 @@ namespace SaladChef
         {
             if (pInstance == null)
                 pInstance = this;
+
         }
 
         private void OnDestroy()

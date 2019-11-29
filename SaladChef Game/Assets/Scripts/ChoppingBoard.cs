@@ -7,6 +7,8 @@ namespace SaladChef
     public class ChoppingBoard : MonoBehaviour, IDroppable
     {
         public bool _IsBusy = false;
+        private GameObject mVegObject;
+
 
         public void OnDropItem(object droppedItem)
         {
@@ -23,8 +25,11 @@ namespace SaladChef
 
         IEnumerator ChopVegetable(VegetableData vegData)
         {
-            yield return new WaitForSeconds(vegData._CutDuration);
+            mVegObject = Instantiate(vegData._Object, transform, true);
+            mVegObject.transform.position = transform.position + Vector3.up * 0.75f;
 
+            yield return new WaitForSeconds(vegData._CutDuration);
+            Destroy(mVegObject);
             Debug.Log("Chopping done " + vegData._Name);
             _IsBusy = false;
         }

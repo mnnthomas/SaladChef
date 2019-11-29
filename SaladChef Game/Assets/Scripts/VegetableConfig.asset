@@ -18,28 +18,34 @@ MonoBehaviour:
       type: 3}
     _CutObject: {fileID: 0}
     _CutDuration: 3
+    _Sprite: {fileID: 21300000, guid: 965f91df04859034b988feb88ce3491e, type: 3}
   - _Name: Onion
     _Object: {fileID: 7325220502025831238, guid: fe3fb6111ba772a44988cddfb366bab1,
       type: 3}
     _CutObject: {fileID: 0}
     _CutDuration: 3
+    _Sprite: {fileID: 21300000, guid: 6d1dda22b41737d46a6d53306b6df8f1, type: 3}
   - _Name: Tomato
     _Object: {fileID: 3769584550662330819, guid: 52f106b28bdfe83408db8716b1eedc58,
       type: 3}
     _CutObject: {fileID: 0}
     _CutDuration: 3
+    _Sprite: {fileID: 21300000, guid: b7b81e30c22a70f4fb040905a0812d79, type: 3}
   - _Name: Cucumber
     _Object: {fileID: 2814923619138326917, guid: 1f92677fee2829749bfbea60cd9a1798,
       type: 3}
     _CutObject: {fileID: 0}
     _CutDuration: 3
+    _Sprite: {fileID: 21300000, guid: 919c061a2d5836145ab0dae1c48d03a3, type: 3}
   - _Name: Cabbage
     _Object: {fileID: 463971305148490528, guid: 7b137ed7c98eda74d91d7d5a96648929,
       type: 3}
     _CutObject: {fileID: 0}
     _CutDuration: 3
+    _Sprite: {fileID: 21300000, guid: 370340bfc248b9f49b90cde119a26393, type: 3}
   - _Name: Potato
     _Object: {fileID: 1396122616184264856, guid: cfedc98f291f97a4089e0aa93e081937,
       type: 3}
     _CutObject: {fileID: 0}
     _CutDuration: 3
+    _Sprite: {fileID: 21300000, guid: 07b0546b5f01c0743b808c6bcd959bff, type: 3}
