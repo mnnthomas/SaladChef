@@ -7,8 +7,8 @@ namespace SaladChef
     public class ChoppingBoard : MonoBehaviour, IDroppable
     {
         public bool _IsBusy = false;
+        [SerializeField] private Plate m_Plate = default;
         private GameObject mVegObject;
-
 
         public void OnDropItem(object droppedItem)
         {
@@ -30,6 +30,7 @@ namespace SaladChef
 
             yield return new WaitForSeconds(vegData._CutDuration);
             Destroy(mVegObject);
+            m_Plate.AddSaladIngredient(vegData);
             Debug.Log("Chopping done " + vegData._Name);
             _IsBusy = false;
         }

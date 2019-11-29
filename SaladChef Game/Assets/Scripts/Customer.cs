@@ -11,10 +11,16 @@ namespace SaladChef
         [SerializeField] private Slider m_Slider = default;
         [SerializeField] private GameObject m_ImagePanel = default;
 
-        [Header("-- Customer values --")]
+        [Header("-- Customer Timer values --")]
         [SerializeField] private float m_WaitDurationPerIngredient = default;
         [SerializeField] private float m_PowerUpSpawnPercentage = default;
-        [SerializeField] private float m_AngryMultiplier = default;
+        [Header("-- Customer Angry values --")]
+        [SerializeField] private float m_AngryTimeMultiplier = default;
+        [SerializeField] private float m_AngryScoreMultiplier = default;
+        [Header("-- Customer Score values --")]
+        [SerializeField] private float m_CorrectScore = default;
+        [SerializeField] private float m_WrongScore = default;
+        [Header("-- Customer Ingredient values --")]
         [SerializeField] private int m_minIngredient = default;
         [SerializeField] private int m_maxIngredient = default;
 
@@ -22,6 +28,7 @@ namespace SaladChef
         private bool mIsAngry;
         private float mCurRequestStartTime;
         private float mCurRequestDuration;
+        private Coroutine mCurRequestCoroutine;
 
         private void Start()
         {
@@ -40,26 +47,52 @@ namespace SaladChef
             }
             mCurRequestDuration = ingredientCount * m_WaitDurationPerIngredient;
             m_Slider.maxValue = mCurRequestDuration;
-            StartCoroutine("StartRequestTimer");
+            m_Slider.value = 0;
+            GetComponent<Renderer>().material.SetColor("_Color", Color.white);
+
+            if (mCurRequestCoroutine != null)
+                StopCoroutine(mCurRequestCoroutine);
+            mCurRequestCoroutine = StartCoroutine("StartNewRequestTimer");
         }
 
-        IEnumerator StartRequestTimer()
+        IEnumerator StartNewRequestTimer()
         {
-            while(m_Slider.value <= m_Slider.maxValue)
+            while(m_Slider.value < m_Slider.maxValue)
             {
                 if (!mIsAngry)
                     m_Slider.value += Time.deltaTime;
                 else
-                    m_Slider.value += Time.deltaTime * m_AngryMultiplier;
+                    m_Slider.value += Time.deltaTime * m_AngryTimeMultiplier;
 
                 yield return new WaitForEndOfFrame();
             }
+
+            OnRequestTimerEnd();
+        }
+
+        private void OnRequestTimerEnd()
+        {
+            RequestNewSalad();
         }
 
         public void OnDropItem(object droppedItem)
         {
             //Check if salad is the requested one
-        
+            Salad droppedSalad = droppedItem as Salad;
+            if(droppedSalad != null)
+            {
+                if (mCurRequestedSalad.CompareSalad(droppedSalad))
+                {
+                    Debug.Log("Correct !!!");
+                    RequestNewSalad();
+                }
+                else
+                {
+                    GetComponent<Renderer>().material.SetColor("_Color",Color.gray);
+                    Debug.Log("Wrong !!!");
+                    mIsAngry = true;
+                }
+            }
         }
     }
 }

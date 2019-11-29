@@ -29,11 +29,25 @@ namespace SaladChef
             _Ingredients.Add(vegData);
         }
 
-        public bool CompareSalad(List<VegetableData> saladList)
+        public bool CompareSalad(Salad compareSalad)
         {
-            if (this.Equals(saladList))
-                return true;
-            return false;
+            if (_Ingredients.Count != compareSalad._Ingredients.Count)
+                return false;
+
+            for(int i = 0; i < _Ingredients.Count; i++)
+            {
+                if (!compareSalad._Ingredients.Contains(_Ingredients[i]))
+                    return false;
+            }
+            return true;
+           
+        }
+
+        public Salad DeepCopy()
+        {
+            Salad deepCopy = new Salad();
+            deepCopy._Ingredients.AddRange(_Ingredients);
+            return deepCopy;
         }
     }
 
@@ -50,34 +64,12 @@ namespace SaladChef
         public Salad GetRandomSalad(int count)
         {
             Salad randomSalad = new Salad();
-            List<int> randoms = GetNonRepetableRandom(count, 0, m_Vegetables.Count-1);
+            List<int> randoms = Utilities.GetNonRepetableRandom(count, 0, m_Vegetables.Count-1);
 
             for (int i = 0; i < count; i++)
                 randomSalad.AddIngredients(m_Vegetables[randoms[i]]);
 
             return randomSalad;
         }
-
-        public List<int> GetNonRepetableRandom(int count, int minValue, int maxValue)
-        {
-            if (count > maxValue - minValue)
-                return null;
-
-            List<int> nonRepetableRandom = new List<int>(count);
-            List<int> curValues = new List<int>();
-
-            for(int i = 0; i <= maxValue - minValue; i++)
-                curValues.Add(minValue + i);
-
-            for(int i = 0; i < count; i ++)
-            {
-                int random = Random.Range(0, curValues.Count);
-                nonRepetableRandom.Add(curValues[random]);
-                curValues.RemoveAt(random);
-            }
-
-            return nonRepetableRandom;
-        }
-
     }
 }

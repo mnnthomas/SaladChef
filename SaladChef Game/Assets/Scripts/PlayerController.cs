@@ -29,7 +29,8 @@ namespace SaladChef
         private MovementController mMovementController;
         private Queue<VegetableData> mVegetablesInHand = new Queue<VegetableData>();
         private List<GameObject> mVegetableObjectsInHand = new List<GameObject>();
-        private GameObject mSaladInHand;
+        private Salad mSaladInHand;
+        private GameObject mSaladObjectInHand;
         private bool mEndTimer;
         private Collider mCurCollider;
         private bool mCanPickVegetable
@@ -86,7 +87,6 @@ namespace SaladChef
                     VegetableData pickedVeg = mCurCollider.GetComponent<IPickable>().PickItem() as VegetableData;
                     if(pickedVeg != null)
                     {
-                        mVegetablesInHand.Enqueue(pickedVeg);
                         OnVegetablePicked(pickedVeg);
                     }
                 }
@@ -105,13 +105,33 @@ namespace SaladChef
                         DropVegetable(mVegetablesInHand.Peek());
                         mCurCollider.GetComponent<IDroppable>().OnDropItem(mVegetablesInHand.Dequeue());
                     }
+                    if(mSaladInHand != null)
+                    {
+                        mCurCollider.GetComponent<IDroppable>().OnDropItem(mSaladInHand);
+                        DropSalad();
+                    }
                 }
-
+                else if(mCurCollider.GetComponent<Plate>() && mCurCollider.GetComponent<Plate>().HasSalad() && mVegetableObjectsInHand.Count == 0 && mSaladInHand == null)
+                {
+                    Salad pickedSalad = mCurCollider.GetComponent<IPickable>().PickItem() as Salad;
+                    if(pickedSalad != null)
+                    {
+                        mSaladObjectInHand = Instantiate(mCurCollider.GetComponent<Plate>().gameObject, transform, true);
+                        mSaladObjectInHand.transform.position = transform.position + Vector3.up;
+                        OnSaladPicked(pickedSalad.DeepCopy());
+                    }
+                }
+                else if(mCurCollider.GetComponent<Customer>() && mSaladInHand != null)
+                {
+                    mCurCollider.GetComponent<IDroppable>().OnDropItem(mSaladInHand);
+                    DropSalad();
+                }
             }
         }
 
         private void OnVegetablePicked(VegetableData veg)
         {
+            mVegetablesInHand.Enqueue(veg);
             if (veg._Object)
             {
                 mVegetableObjectsInHand.Add(Instantiate(veg._Object, transform));
@@ -122,10 +142,21 @@ namespace SaladChef
             }
         }
 
+        private void OnSaladPicked(Salad salad)
+        {
+            mSaladInHand = salad;
+        }
+
         private void OnDroppedItemInChoppingBoard(VegetableData veg)
         {
             DropVegetable(veg);
             StartCoroutine("PauseForSeconds", veg._CutDuration);
+        }
+
+        private void DropSalad()
+        {
+            Destroy(mSaladObjectInHand);
+            mSaladInHand = null;
         }
 
         private void DropVegetable(VegetableData veg)

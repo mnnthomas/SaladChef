@@ -16,36 +16,42 @@ MonoBehaviour:
   - _Name: Carrot
     _Object: {fileID: 1356042431659478460, guid: 7c4e239905bfb53458f37600bb157ed9,
       type: 3}
-    _CutObject: {fileID: 0}
-    _CutDuration: 3
+    _CutObject: {fileID: 6797116210696430096, guid: e5a85d2a71e8c324c9bb7b34e41cedb5,
+      type: 3}
+    _CutDuration: 2
     _Sprite: {fileID: 21300000, guid: 965f91df04859034b988feb88ce3491e, type: 3}
   - _Name: Onion
     _Object: {fileID: 7325220502025831238, guid: fe3fb6111ba772a44988cddfb366bab1,
       type: 3}
-    _CutObject: {fileID: 0}
-    _CutDuration: 3
+    _CutObject: {fileID: 2417792080125720290, guid: 390a5c679a8fc044c91724a550d30255,
+      type: 3}
+    _CutDuration: 2
     _Sprite: {fileID: 21300000, guid: 6d1dda22b41737d46a6d53306b6df8f1, type: 3}
   - _Name: Tomato
     _Object: {fileID: 3769584550662330819, guid: 52f106b28bdfe83408db8716b1eedc58,
       type: 3}
-    _CutObject: {fileID: 0}
-    _CutDuration: 3
+    _CutObject: {fileID: 4575455917785031236, guid: 8758fc14fdd26144b978bdf772312b06,
+      type: 3}
+    _CutDuration: 2
     _Sprite: {fileID: 21300000, guid: b7b81e30c22a70f4fb040905a0812d79, type: 3}
   - _Name: Cucumber
     _Object: {fileID: 2814923619138326917, guid: 1f92677fee2829749bfbea60cd9a1798,
       type: 3}
-    _CutObject: {fileID: 0}
-    _CutDuration: 3
+    _CutObject: {fileID: 142458795186724563, guid: d8ad50016b020e84d9af8f0e5f8e4586,
+      type: 3}
+    _CutDuration: 2
     _Sprite: {fileID: 21300000, guid: 919c061a2d5836145ab0dae1c48d03a3, type: 3}
   - _Name: Cabbage
     _Object: {fileID: 463971305148490528, guid: 7b137ed7c98eda74d91d7d5a96648929,
       type: 3}
-    _CutObject: {fileID: 0}
-    _CutDuration: 3
+    _CutObject: {fileID: 3384273923910269238, guid: 899fed26b825560468f7033393da6ff4,
+      type: 3}
+    _CutDuration: 2
     _Sprite: {fileID: 21300000, guid: 370340bfc248b9f49b90cde119a26393, type: 3}
   - _Name: Potato
     _Object: {fileID: 1396122616184264856, guid: cfedc98f291f97a4089e0aa93e081937,
       type: 3}
-    _CutObject: {fileID: 0}
-    _CutDuration: 3
+    _CutObject: {fileID: 2939447021186622492, guid: be4aa416349a7744684dea2721bf5080,
+      type: 3}
+    _CutDuration: 2
     _Sprite: {fileID: 21300000, guid: 07b0546b5f01c0743b808c6bcd959bff, type: 3}

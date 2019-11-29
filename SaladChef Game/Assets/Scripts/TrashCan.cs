@@ -13,7 +13,8 @@ namespace SaladChef
                 Debug.Log("Vegetable trashed " + veg._Name);
             else
             {
-
+                Salad salad = droppedItem as Salad;
+                Debug.Log("Salad trashed with " + salad._Ingredients.Count +" ingredients");
             }
         }
     }

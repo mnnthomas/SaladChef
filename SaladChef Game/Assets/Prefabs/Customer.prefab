@@ -503,7 +503,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7126532547996513923}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 2, z: 5}
@@ -524,7 +524,10 @@ MonoBehaviour:
   m_ImagePanel: {fileID: 56970358227544788}
   m_WaitDurationPerIngredient: 15
   m_PowerUpSpawnPercentage: 70
-  m_AngryMultiplier: 1.5
+  m_AngryTimeMultiplier: 1.5
+  m_AngryScoreMultiplier: 1.5
+  m_CorrectScore: 50
+  m_WrongScore: 25
   m_minIngredient: 2
   m_maxIngredient: 3
 --- !u!1 &7126532548359425639
