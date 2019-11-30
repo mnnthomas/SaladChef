@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace SaladChef
 {
@@ -14,7 +12,6 @@ namespace SaladChef
         {
             if (pInstance == null)
                 pInstance = this;
-
         }
 
         private void OnDestroy()

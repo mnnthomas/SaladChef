@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace SaladChef
@@ -10,7 +9,7 @@ namespace SaladChef
         [SerializeField] private Plate m_Plate = default;
         private GameObject mVegObject;
 
-        public void OnDropItem(object droppedItem)
+        public void OnDropItem(object droppedItem, PlayerController droppedBy)
         {
             if(!_IsBusy)
             {
@@ -23,6 +22,11 @@ namespace SaladChef
             }
         }
 
+        /// <summary>
+        /// Creates a copy of dropped vegetable and Adds cut ingredient to plate after vegetable cut duration
+        /// </summary>
+        /// <param name="vegData">dropped vegetable data</param>
+        /// <returns></returns>
         IEnumerator ChopVegetable(VegetableData vegData)
         {
             mVegObject = Instantiate(vegData._Object, transform, true);
@@ -31,7 +35,6 @@ namespace SaladChef
             yield return new WaitForSeconds(vegData._CutDuration);
             Destroy(mVegObject);
             m_Plate.AddSaladIngredient(vegData);
-            Debug.Log("Chopping done " + vegData._Name);
             _IsBusy = false;
         }
     }

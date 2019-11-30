@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 0.39215687}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -527,7 +527,7 @@ MonoBehaviour:
   m_AngryTimeMultiplier: 1.5
   m_AngryScoreMultiplier: 1.5
   m_CorrectScore: 50
-  m_WrongScore: 25
+  m_UndeliveredScore: -10
   m_minIngredient: 2
   m_maxIngredient: 3
 --- !u!1 &7126532548359425639

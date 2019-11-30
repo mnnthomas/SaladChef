@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace SaladChef
 {
@@ -12,6 +10,14 @@ namespace SaladChef
         private VegetableData mVegetable;
 
         private void Start()
+        {
+            InitVegetable();
+        }
+
+        /// <summary>
+        /// Creates a one time instance of the vegetable in spawn area.
+        /// </summary>
+        private void InitVegetable()
         {
             mVegetable = GameManager.pInstance._VegetableConfig.GetVegetableByName(m_VegetableName);
             if (mVegetable != null && mVegetable._Object)

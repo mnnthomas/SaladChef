@@ -209,7 +209,7 @@ GameObject:
   - component: {fileID: 159655855}
   - component: {fileID: 159655854}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: HUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -499,7 +499,6 @@ MonoBehaviour:
   m_Timer: {fileID: 2121346455}
   m_Score: {fileID: 903858378}
   m_MaxVegetableInHand: 2
-  m_MaxSaladInHand: 1
 --- !u!143 &237703816
 CharacterController:
   m_ObjectHideFlags: 0
@@ -672,6 +671,10 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 774099617, guid: f0a6cc5b8e1beaa4dae73a2a3f3e5fa5, type: 3}
+      propertyPath: m_UndeliveredScore
+      value: -10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0a6cc5b8e1beaa4dae73a2a3f3e5fa5, type: 3}
@@ -867,7 +870,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 000
+  m_Text: 0
 --- !u!222 &478129583
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -957,6 +960,10 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 774099617, guid: f0a6cc5b8e1beaa4dae73a2a3f3e5fa5, type: 3}
+      propertyPath: m_UndeliveredScore
+      value: -10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0a6cc5b8e1beaa4dae73a2a3f3e5fa5, type: 3}
@@ -1076,10 +1083,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 384441231}
-  - {fileID: 1505144521}
   - {fileID: 2007071722}
   - {fileID: 1190321746}
   - {fileID: 1960756040}
+  - {fileID: 1505144521}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1520,7 +1527,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 000
+  m_Text: 0
 --- !u!222 &903858379
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1984,7 +1991,7 @@ Transform:
   - {fileID: 1731870436}
   - {fileID: 739882558}
   m_Father: {fileID: 562885320}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1248294101
 GameObject:
@@ -2111,6 +2118,10 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 774099617, guid: f0a6cc5b8e1beaa4dae73a2a3f3e5fa5, type: 3}
+      propertyPath: m_UndeliveredScore
+      value: -10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0a6cc5b8e1beaa4dae73a2a3f3e5fa5, type: 3}
@@ -2618,7 +2629,6 @@ MonoBehaviour:
   m_Timer: {fileID: 463259851}
   m_Score: {fileID: 478129582}
   m_MaxVegetableInHand: 2
-  m_MaxSaladInHand: 1
 --- !u!136 &1878587320
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2909,7 +2919,7 @@ Transform:
   - {fileID: 489395923}
   - {fileID: 307096376}
   m_Father: {fileID: 562885320}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2007071721
 GameObject:
@@ -2921,7 +2931,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2007071722}
   m_Layer: 0
-  m_Name: ChoppingBoards
+  m_Name: ChoppingBoardsAndPlates
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2943,7 +2953,7 @@ Transform:
   - {fileID: 212853475}
   - {fileID: 2090121363}
   m_Father: {fileID: 562885320}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2090121363 stripped
 Transform:
@@ -3324,7 +3334,7 @@ PrefabInstance:
     - target: {fileID: 5855949743558920122, guid: e6ccdd8505068904d9ec1375d7d77b72,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5855949743558920122, guid: e6ccdd8505068904d9ec1375d7d77b72,
         type: 3}
@@ -3341,16 +3351,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5855949743558920120, guid: e6ccdd8505068904d9ec1375d7d77b72,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 5855949743558920127, guid: e6ccdd8505068904d9ec1375d7d77b72,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 458b11f29b6472c419ae8d98af0c4641, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6ccdd8505068904d9ec1375d7d77b72, type: 3}
 --- !u!1001 &7126532548056343441

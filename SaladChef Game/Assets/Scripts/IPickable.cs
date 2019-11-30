@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace SaladChef
+﻿namespace SaladChef
 {
     public interface IPickable
     {

@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public interface IDroppable
+﻿namespace SaladChef
 {
-    void OnDropItem(object droppedItem);
+    public interface IDroppable
+    {
+        void OnDropItem(object droppedItem, PlayerController droppedBy);
+    }
 }

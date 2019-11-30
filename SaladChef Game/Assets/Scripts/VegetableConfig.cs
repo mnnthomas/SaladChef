@@ -1,9 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace SaladChef
 {
+    /// <summary>
+    /// Vegetable class - contains Name, Vegetable object, Vegetable cut object, Cut duration and Sprite
+    /// </summary>
     [System.Serializable]
     public class VegetableData
     {
@@ -14,6 +16,9 @@ namespace SaladChef
         public Sprite _Sprite;
     }
 
+    /// <summary>
+    /// Salad class - contains ingredients (List of vegetables)
+    /// </summary>
     [System.Serializable]
     public class Salad
     {
@@ -29,6 +34,11 @@ namespace SaladChef
             _Ingredients.Add(vegData);
         }
 
+        /// <summary>
+        /// Compares current salad with another salad
+        /// </summary>
+        /// <param name="compareSalad">Salad item to compare with</param>
+        /// <returns>true/false based on comparision</returns>
         public bool CompareSalad(Salad compareSalad)
         {
             if (_Ingredients.Count != compareSalad._Ingredients.Count)
@@ -43,6 +53,10 @@ namespace SaladChef
            
         }
 
+        /// <summary>
+        /// Deep copies current salad 
+        /// </summary>
+        /// <returns></returns>
         public Salad DeepCopy()
         {
             Salad deepCopy = new Salad();
@@ -51,6 +65,9 @@ namespace SaladChef
         }
     }
 
+    /// <summary>
+    /// Scriptable object to set all vegetable data
+    /// </summary>
     [CreateAssetMenu(menuName = "Vegetable configuration")]
     public class VegetableConfig : ScriptableObject
     {
@@ -64,7 +81,7 @@ namespace SaladChef
         public Salad GetRandomSalad(int count)
         {
             Salad randomSalad = new Salad();
-            List<int> randoms = Utilities.GetNonRepetableRandom(count, 0, m_Vegetables.Count-1);
+            List<int> randoms = Utilities.GetNonRepetitiveRandom(count, 0, m_Vegetables.Count-1);
 
             for (int i = 0; i < count; i++)
                 randomSalad.AddIngredients(m_Vegetables[randoms[i]]);

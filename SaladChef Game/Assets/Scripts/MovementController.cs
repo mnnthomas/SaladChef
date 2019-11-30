@@ -19,6 +19,12 @@ namespace SaladChef
             mCharController = GetComponent<CharacterController>();
         }
 
+        /// <summary>
+        /// Inits movement update
+        /// </summary>
+        /// <param name="speed">movement speed</param>
+        /// <param name="horizontalAxis">name of horizontal axis</param>
+        /// <param name="verticalAxis">name of vertical axis</param>
         public void InitMovement(float speed, string horizontalAxis, string verticalAxis)
         {
             mIsInitialized = true;
@@ -28,6 +34,11 @@ namespace SaladChef
             Pause(false);
         }
 
+
+        /// <summary>
+        /// Pauses movement controller's update
+        /// </summary>
+        /// <param name="value">mAllowInput</param>
         public void Pause(bool value)
         {
             mAllowInput = !value;

@@ -6,12 +6,19 @@ namespace SaladChef
 {
     public class Utilities
     {
-        public static List<int> GetNonRepetableRandom(int count, int minValue, int maxValue)
+        /// <summary>
+        /// Generates a integer list of non repetitive random numbers
+        /// </summary>
+        /// <param name="count">size of list</param>
+        /// <param name="minValue">starting value</param>
+        /// <param name="maxValue">ending value</param>
+        /// <returns>returns null of requested number of randoms is more than the range, else returns a list of integer</returns>
+        public static List<int> GetNonRepetitiveRandom(int count, int minValue, int maxValue)
         {
             if (count > maxValue - minValue)
                 return null;
 
-            List<int> nonRepetableRandom = new List<int>(count);
+            List<int> nonRepetitiveRandom = new List<int>(count);
             List<int> curValues = new List<int>();
 
             for (int i = 0; i <= maxValue - minValue; i++)
@@ -20,11 +27,11 @@ namespace SaladChef
             for (int i = 0; i < count; i++)
             {
                 int random = Random.Range(0, curValues.Count);
-                nonRepetableRandom.Add(curValues[random]);
+                nonRepetitiveRandom.Add(curValues[random]);
                 curValues.RemoveAt(random);
             }
 
-            return nonRepetableRandom;
+            return nonRepetitiveRandom;
         }
     }
 }
