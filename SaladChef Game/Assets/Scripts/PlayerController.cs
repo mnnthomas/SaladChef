@@ -98,7 +98,7 @@ namespace SaladChef
                 //Condition to drop a vegetable to chopping board
                 else if (mCurCollider.GetComponent<ChoppingBoard>() && !mCurCollider.GetComponent<ChoppingBoard>()._IsBusy && mSaladInHand == null && mVegetablesInHand.Count > 0)
                 {
-                    Debug.Log("Dropping item >>> " + mVegetablesInHand.Peek()._Name);
+                    //Debug.Log("Dropping item >>> " + mVegetablesInHand.Peek()._Name);
                     OnDroppedItemInChoppingBoard(mVegetablesInHand.Peek());
                     mCurCollider.GetComponent<IDroppable>().OnDropItem(mVegetablesInHand.Dequeue(), this);
                 }

@@ -5,6 +5,7 @@ namespace SaladChef
 {
     public class ChoppingBoard : MonoBehaviour, IDroppable
     {
+        [HideInInspector]
         public bool _IsBusy = false;
         [SerializeField] private Plate m_Plate = default;
         private GameObject mVegObject;

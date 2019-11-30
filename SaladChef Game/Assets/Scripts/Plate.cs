@@ -5,7 +5,8 @@ namespace SaladChef
 {
     public class Plate : MonoBehaviour, IPickable
     {
-        public Salad mSalad = new Salad();
+        [HideInInspector]
+        public Salad _Salad = new Salad();
         private List<GameObject> mCutVeg = new List<GameObject>();
 
         /// <summary>
@@ -14,17 +15,17 @@ namespace SaladChef
         /// <returns>Deep copy of Salad item</returns>
         public object PickItem()
         {
-            Salad deepCopySalad = mSalad.DeepCopy();
+            Salad deepCopySalad = _Salad.DeepCopy();
             ClearPlate();
             return deepCopySalad;
         }
 
         public void AddSaladIngredient(VegetableData veg)
         {
-            mSalad.AddIngredients(veg);
+            _Salad.AddIngredients(veg);
 
             mCutVeg.Add(Instantiate(veg._CutObject, transform, true));
-            mCutVeg[mCutVeg.Count -1].transform.position = transform.position + new Vector3(Random.Range(0, 0.25f), 0.1f * mSalad._Ingredients.Count, Random.Range(0, 0.25f));
+            mCutVeg[mCutVeg.Count -1].transform.position = transform.position + new Vector3(Random.Range(0, 0.25f), 0.1f * _Salad._Ingredients.Count, Random.Range(0, 0.25f));
         }
 
         /// <summary>
@@ -33,7 +34,7 @@ namespace SaladChef
         /// <returns>true/false based on ingredients count</returns>
         public bool HasSalad()
         {
-            if (mSalad._Ingredients.Count > 0)
+            if (_Salad != null && _Salad._Ingredients.Count > 0)
                 return true;
             return false;
         }
@@ -47,7 +48,7 @@ namespace SaladChef
                 Destroy(mCutVeg[i].gameObject);
 
             mCutVeg.Clear();
-            mSalad = null;
+            _Salad = null;
         }
     }
 }
