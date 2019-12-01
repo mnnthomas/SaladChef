@@ -4,8 +4,8 @@ namespace SaladChef
 {
     public class TrashCan : MonoBehaviour, IDroppable
     {
-        [SerializeField] private float m_VegetableTrashedScore;
-        [SerializeField] private float m_SaladTrashedScore;
+        [SerializeField] private float m_VegetableTrashedScore = default;
+        [SerializeField] private float m_SaladTrashedScore = default;
         public static System.Action<PlayerController, float> OnItemTrashed;
 
         /// <summary>

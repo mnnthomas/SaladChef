@@ -15,8 +15,8 @@ namespace SaladChef
         [SerializeField] private string m_VerticalAxis = default;
         [SerializeField] private string m_ActionKey = default;
         [Header("-- Player UI variables --")]
-        [SerializeField] private Text m_Timer = default;
-        [SerializeField] private Text m_Score = default;
+        [SerializeField] private Text m_TimerText = default;
+        [SerializeField] private Text m_ScoreText = default;
         [Header("-- Items carry variable --")]
         [SerializeField] private int m_MaxVegetableInHand = default;
 
@@ -29,7 +29,9 @@ namespace SaladChef
         private GameObject mSaladObjectInHand;
         private bool mEndTimer;
         private Collider mCurCollider;
-        private float mScore;
+        private Coroutine mPauseCoroutine;
+
+        public float pScore { get; private set; }
         private bool mCanPickVegetable
         {
             get { return mVegetablesInHand.Count < m_MaxVegetableInHand && mSaladInHand == null; }
@@ -70,7 +72,7 @@ namespace SaladChef
             if (m_Duration > 0)
             {
                 m_Duration -= Time.deltaTime;
-                m_Timer.text = (int)m_Duration / 60 + " m " + (int)m_Duration % 60 + " s";
+                m_TimerText.text = (int)m_Duration / 60 + " m " + (int)m_Duration % 60 + " s";
             }
             else
             {
@@ -98,7 +100,6 @@ namespace SaladChef
                 //Condition to drop a vegetable to chopping board
                 else if (mCurCollider.GetComponent<ChoppingBoard>() && !mCurCollider.GetComponent<ChoppingBoard>()._IsBusy && mSaladInHand == null && mVegetablesInHand.Count > 0)
                 {
-                    //Debug.Log("Dropping item >>> " + mVegetablesInHand.Peek()._Name);
                     OnDroppedItemInChoppingBoard(mVegetablesInHand.Peek());
                     mCurCollider.GetComponent<IDroppable>().OnDropItem(mVegetablesInHand.Dequeue(), this);
                 }
@@ -116,6 +117,7 @@ namespace SaladChef
                         DropSalad();
                     }
                 }
+                //Condition to pick salad plate
                 else if(mCurCollider.GetComponent<Plate>() && mCurCollider.GetComponent<Plate>().HasSalad() && mVegetableObjectsInHand.Count == 0 && mSaladInHand == null)
                 {
                     Salad pickedSalad = mCurCollider.GetComponent<IPickable>().PickItem() as Salad;
@@ -126,6 +128,7 @@ namespace SaladChef
                         OnSaladPicked(pickedSalad.DeepCopy());
                     }
                 }
+                //Condition to deliver to customer
                 else if(mCurCollider.GetComponent<Customer>() && mSaladInHand != null)
                 {
                     mCurCollider.GetComponent<IDroppable>().OnDropItem(mSaladInHand, this);
@@ -155,7 +158,7 @@ namespace SaladChef
         private void OnDroppedItemInChoppingBoard(VegetableData veg)
         {
             DropVegetable(veg);
-            StartCoroutine("PauseForSeconds", veg._CutDuration);
+            mPauseCoroutine = StartCoroutine("PauseForSeconds", veg._CutDuration);
         }
 
         private void DropSalad()
@@ -188,6 +191,10 @@ namespace SaladChef
         private void OnTimerEnd()
         {
             Debug.Log(name + " Times up");
+            AllowPlayerInputs(false);
+            if (mPauseCoroutine != null)
+                StopCoroutine(mPauseCoroutine);
+            GameManager.pInstance.OnPlayerTimerEnd();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -204,27 +211,27 @@ namespace SaladChef
         {
             if(player == this)
             {
-                mScore += score;
-                m_Score.text = mScore.ToString();
+                pScore += score;
+                m_ScoreText.text = pScore.ToString();
             }
         }
 
         private void OnSaladNotDelivered(List<PlayerController> players, float angryScore, float score)
         {
             if (players != null && players.Count > 0 && players.Contains(this))
-                mScore += angryScore;
+                pScore += angryScore;
             else
-                mScore += score;
+                pScore += score;
 
-            m_Score.text = mScore.ToString();
+            m_ScoreText.text = pScore.ToString();
         }
 
         private void OnItemTrashed(PlayerController player, float score)
         {
             if (player == this)
             {
-                mScore += score;
-                m_Score.text = mScore.ToString();
+                pScore += score;
+                m_ScoreText.text = pScore.ToString();
             }
         }
 

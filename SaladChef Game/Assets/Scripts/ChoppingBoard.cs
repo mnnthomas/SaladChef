@@ -9,6 +9,12 @@ namespace SaladChef
         public bool _IsBusy = false;
         [SerializeField] private Plate m_Plate = default;
         private GameObject mVegObject;
+        private Coroutine mChopCoroutine;
+
+        private void Start()
+        {
+            GameManager.pInstance.OnGameEnd += OnGameEnd;
+        }
 
         public void OnDropItem(object droppedItem, PlayerController droppedBy)
         {
@@ -18,7 +24,7 @@ namespace SaladChef
                 if (veg != null)
                 {
                     _IsBusy = true;
-                    StartCoroutine("ChopVegetable", veg);
+                    mChopCoroutine = StartCoroutine("ChopVegetable", veg);
                 }
             }
         }
@@ -37,6 +43,12 @@ namespace SaladChef
             Destroy(mVegObject);
             m_Plate.AddSaladIngredient(vegData);
             _IsBusy = false;
+        }
+
+        private void OnGameEnd()
+        {
+            if (mChopCoroutine != null)
+                StopCoroutine(mChopCoroutine);
         }
     }
 }

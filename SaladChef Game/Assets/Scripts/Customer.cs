@@ -35,6 +35,7 @@ namespace SaladChef
 
         private void Start()
         {
+            GameManager.pInstance.OnGameEnd += OnGameEnd;
             RequestNewSalad();
         }
 
@@ -149,6 +150,12 @@ namespace SaladChef
         private void SpawnPowerUp(PlayerController player)
         {
             Debug.Log("Powerup spawned for player " + player.gameObject.name);
+        }
+
+        private void OnGameEnd()
+        {
+            if (mCurRequestCoroutine != null)
+                StopCoroutine(mCurRequestCoroutine);
         }
     }
 }
