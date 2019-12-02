@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace SaladChef
 {
+    /// <summary>
+    /// Utilities class - can have more static methods to handle common game functionalities
+    /// </summary>
     public class Utilities
     {
         /// <summary>

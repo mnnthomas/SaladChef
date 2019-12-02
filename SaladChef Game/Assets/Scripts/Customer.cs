@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 namespace SaladChef
 {
+    /// <summary>
+    /// Handles Customer UI, Customer satisfaction scenario and powerup spawn scenario
+    /// </summary>
     public class Customer : MonoBehaviour, IDroppable
     {
         [Header("-- References --")]
@@ -82,7 +85,6 @@ namespace SaladChef
         /// <summary>
         /// Salad request timer based on the number of ingredients in salad
         /// </summary>
-        /// <returns></returns>
         IEnumerator StartNewRequestTimer()
         {
             while(m_Slider.value < m_Slider.maxValue)
@@ -137,7 +139,7 @@ namespace SaladChef
                     OnCorrectItemDelivered?.Invoke(droppedBy, m_CorrectScore);
                     if((m_Slider.value / m_Slider.maxValue * 100) < m_PowerUpSpawnPercentage)
                     {
-                        Debug.Log("Delivered in " +(m_Slider.value / m_Slider.maxValue * 100)+ "% duration");
+                        //Debug.Log("Delivered in " +(m_Slider.value / m_Slider.maxValue * 100)+ "% duration");
                         SpawnPowerUp(droppedBy);
                     }
 
@@ -150,7 +152,7 @@ namespace SaladChef
 
         private void SpawnPowerUp(PlayerController player)
         {
-            Debug.Log("Powerup spawned for player " + player.gameObject.name);
+            //Debug.Log("Powerup spawned for player " + player.gameObject.name);
             m_PowerupSpawn.SpawnPowerup(player);
         }
 

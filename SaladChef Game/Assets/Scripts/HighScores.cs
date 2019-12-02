@@ -5,6 +5,10 @@ using System.IO;
 
 namespace SaladChef
 {
+
+    /// <summary>
+    /// Highscore data is a collection of Name(string) and score(float)
+    /// </summary>
     public class HighScoreData
     {
         public string _Name;
@@ -29,7 +33,10 @@ namespace SaladChef
             mFilePath = Application.dataPath + "/" + m_HighScoreFileName + ".txt";
         }
 
-       
+       /// <summary>
+       /// Reads and sorts highscore from the txt file path
+       /// </summary>
+       /// <returns> a list of sorted highscore data</returns>
         public List<HighScoreData> ReadHighScores()
         {
             if (File.Exists(mFilePath))
@@ -78,6 +85,9 @@ namespace SaladChef
             return highscores;
         }
 
+        /// <summary>
+        /// removes the least score on top highscore list and adds a new list of top highscores to the txt file
+        /// </summary>
         public void AddHighScores(string name, float score)
         {
             if (!File.Exists(mFilePath))
@@ -117,6 +127,11 @@ namespace SaladChef
             sw.Close();
         }
 
+        /// <summary>
+        /// checks if the given score can be in top highscores
+        /// </summary>
+        /// <param name="score"></param>
+        /// <returns></returns>
         public bool IsHighScore(float score)
         {
             List<HighScoreData> highscoreData = ReadHighScores();

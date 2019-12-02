@@ -21,16 +21,22 @@ namespace SaladChef
         [Header("-- Items carry variable --")]
         [SerializeField] private int m_MaxVegetableInHand = default;
 
+        private MovementController mMovementController;
         private bool mInitialized;
         private bool mCanInteract = true;
-        private MovementController mMovementController;
+        private bool mEndTimer;
+
+        //Vegetable data and instantiated object references
         private Queue<VegetableData> mVegetablesInHand = new Queue<VegetableData>();
         private List<GameObject> mVegetableObjectsInHand = new List<GameObject>();
+        //Salad data and instantiated salad reference
         private Salad mSaladInHand;
         private GameObject mSaladObjectInHand;
-        private bool mEndTimer;
+        //Current collider to perform action
         private Collider mCurCollider;
+        //Coroutine references
         private Coroutine mPauseCoroutine;
+        private Coroutine mSpeedCoroutine;
 
         public string pPlayerName { get { return m_PlayerName; } private set { }}
         public float pScore { get; private set; }
@@ -38,7 +44,6 @@ namespace SaladChef
         {
             get { return mVegetablesInHand.Count < m_MaxVegetableInHand && mSaladInHand == null; }
         }
-
 
         void Start()
         {
@@ -208,6 +213,7 @@ namespace SaladChef
             mCurCollider = null;
         }
 
+        //Updates score on correct salad delivered
         private void OnCorrectSalad(PlayerController player, float score)
         {
             if(player == this)
@@ -217,6 +223,7 @@ namespace SaladChef
             }
         }
 
+        //Updates score on salad not delivered
         private void OnSaladNotDelivered(List<PlayerController> players, float angryScore, float score)
         {
             if (players != null && players.Count > 0 && players.Contains(this))
@@ -227,6 +234,7 @@ namespace SaladChef
             m_ScoreText.text = pScore.ToString();
         }
 
+        //Updates score on vegetable/salad trashed
         private void OnItemTrashed(PlayerController player, float score)
         {
             if (player == this)
@@ -238,17 +246,29 @@ namespace SaladChef
 
         private void OnTimePowerup(PowerupData powerupData)
         {
-            Debug.Log("On Time powerup");
+            m_Duration += powerupData._PowerupMultiplier;
         }
 
         private void OnScorePowerup(PowerupData powerupData)
         {
-            Debug.Log("On Score powerup");
+            pScore += powerupData._PowerupMultiplier;
+            m_ScoreText.text = pScore.ToString();
+
         }
 
         private void OnSpeedPowerup(PowerupData powerupData)
         {
-            Debug.Log("On Speed powerup");
+            if (mSpeedCoroutine != null)
+                StopCoroutine(mSpeedCoroutine);
+
+            mSpeedCoroutine = StartCoroutine(UpdateSpeedForDuration(m_Speed * powerupData._PowerupMultiplier, powerupData._PowerupDuration));
+        }
+
+        IEnumerator UpdateSpeedForDuration(float speed, float duration)
+        {
+            mMovementController.UpdateSpeed(speed);
+            yield return new WaitForSeconds(duration);
+            mMovementController.UpdateSpeed(m_Speed);
         }
 
         private void OnDestroy()

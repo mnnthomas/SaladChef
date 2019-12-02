@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 namespace SaladChef
 {
+    /// <summary>
+    /// Currently handles a bit of UI flow and game end scenarios
+    /// </summary>
     public class GameManager : MonoBehaviour
     {
         [Header("-- UI references --")]
@@ -34,12 +37,15 @@ namespace SaladChef
         public void OnPlayerTimerEnd()
         {
             mPlayersCompleted++;
-            if(mPlayersCompleted == 2)
+            if(mPlayersCompleted == 2) // hardcorded to check for two player completion, can be updated if the game has different design
             {
                 ShowGameEnd();
             }
         }
 
+        /// <summary>
+        /// Decides player win scenario and updated the gameend ui
+        /// </summary>
         public void ShowGameEnd()
         {
             OnGameEnd?.Invoke(); 

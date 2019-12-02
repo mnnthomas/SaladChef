@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace SaladChef
 {
+    /// <summary>
+    /// A chopping board class that functions vegetable chopping based on vegetable config and moves the chopped ingredient to respective plate
+    /// </summary>
     public class ChoppingBoard : MonoBehaviour, IDroppable
     {
         [HideInInspector]

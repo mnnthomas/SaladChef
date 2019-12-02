@@ -49,6 +49,11 @@ namespace SaladChef
             HandlePlayerInputs();
         }
 
+        public void UpdateSpeed(float speed)
+        {
+            mSpeed = speed;
+        }
+
         void HandlePlayerInputs()
         {
             if (mAllowInput && mIsInitialized)

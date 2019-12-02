@@ -6,6 +6,7 @@ namespace SaladChef
 {
     public class ScorePowerup : Powerup
     { 
+        //Can have something relevant and unique to score powerup here
     }
 }
 

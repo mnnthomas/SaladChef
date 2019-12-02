@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace SaladChef
 {
+    /// <summary>
+    /// A powerup spawn class to spawn random powerup in the defined powerup spawn area
+    /// </summary>
     public class PowerupSpawn : MonoBehaviour
     {
         [SerializeField] private List<GameObject> m_Powerups = new List<GameObject>();

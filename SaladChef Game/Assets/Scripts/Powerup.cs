@@ -9,6 +9,9 @@ namespace SaladChef
         public float _PowerupMultiplier;
     }
 
+    /// <summary>
+    /// An abstract powerup class to handle common functionalities of powerup
+    /// </summary>
     public abstract class Powerup : MonoBehaviour
     {
         [SerializeField] protected PowerupData m_PowerupData;

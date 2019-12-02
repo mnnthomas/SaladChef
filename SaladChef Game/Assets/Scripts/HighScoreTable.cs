@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace SaladChef
 {
+    /// <summary>
+    /// Creates the highscore list when highscore button is clicked in gameend screen.
+    /// </summary>
     public class HighScoreTable : MonoBehaviour
     {
         [SerializeField] private HighScores m_Highscores = default;
