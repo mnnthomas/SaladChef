@@ -8,6 +8,7 @@ namespace SaladChef
     public class PlayerController : MonoBehaviour
     {
         [Header("-- Stats --")]
+        [SerializeField] private string m_PlayerName = default;
         [SerializeField] private float m_Speed = default;
         [SerializeField] private float m_Duration = default;
         [Header("-- Player movement and input variables --")]
@@ -31,6 +32,7 @@ namespace SaladChef
         private Collider mCurCollider;
         private Coroutine mPauseCoroutine;
 
+        public string pPlayerName { get { return m_PlayerName; } private set { }}
         public float pScore { get; private set; }
         private bool mCanPickVegetable
         {
@@ -190,7 +192,6 @@ namespace SaladChef
 
         private void OnTimerEnd()
         {
-            Debug.Log(name + " Times up");
             AllowPlayerInputs(false);
             if (mPauseCoroutine != null)
                 StopCoroutine(mPauseCoroutine);
@@ -233,6 +234,21 @@ namespace SaladChef
                 pScore += score;
                 m_ScoreText.text = pScore.ToString();
             }
+        }
+
+        private void OnTimePowerup(PowerupData powerupData)
+        {
+            Debug.Log("On Time powerup");
+        }
+
+        private void OnScorePowerup(PowerupData powerupData)
+        {
+            Debug.Log("On Score powerup");
+        }
+
+        private void OnSpeedPowerup(PowerupData powerupData)
+        {
+            Debug.Log("On Speed powerup");
         }
 
         private void OnDestroy()

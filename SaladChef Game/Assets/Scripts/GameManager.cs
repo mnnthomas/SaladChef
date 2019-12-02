@@ -38,7 +38,6 @@ namespace SaladChef
             {
                 ShowGameEnd();
             }
-
         }
 
         public void ShowGameEnd()
@@ -48,14 +47,14 @@ namespace SaladChef
 
             if (m_Player1.pScore < m_Player2.pScore)
             {
-                m_GameEndText.text = "Player 2 has won !";
+                m_GameEndText.text = m_Player2.pPlayerName+" has won !";
                 mWonPlayer = m_Player2;
                 if (m_HighScoreObject.IsHighScore(m_Player2.pScore))
                     m_HighScoreSaveScreen.SetActive(true);
             }
             else if (m_Player1.pScore > m_Player2.pScore)
             {
-                m_GameEndText.text = "Player 1 has won !";
+                m_GameEndText.text = m_Player1.pPlayerName+" has won !";
                 mWonPlayer = m_Player1;
                 if (m_HighScoreObject.IsHighScore(m_Player1.pScore))
                     m_HighScoreSaveScreen.SetActive(true);

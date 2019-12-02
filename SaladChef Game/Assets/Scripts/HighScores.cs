@@ -29,12 +29,11 @@ namespace SaladChef
             mFilePath = Application.dataPath + "/" + m_HighScoreFileName + ".txt";
         }
 
-        //reads and updates highscore to mainmenu
+       
         public List<HighScoreData> ReadHighScores()
         {
             if (File.Exists(mFilePath))
             {
-                //FileStream fs = new FileStream(mFilePath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
                 StreamReader sr = new StreamReader(mFilePath);
                 string fileContents = sr.ReadToEnd();
                 sr.Close();
@@ -79,7 +78,6 @@ namespace SaladChef
             return highscores;
         }
 
-        //Writes highscores into text file
         public void AddHighScores(string name, float score)
         {
             if (!File.Exists(mFilePath))

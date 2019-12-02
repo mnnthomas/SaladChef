@@ -10,6 +10,7 @@ namespace SaladChef
         [Header("-- References --")]
         [SerializeField] private Slider m_Slider = default;
         [SerializeField] private GameObject m_ImagePanel = default;
+        [SerializeField] private PowerupSpawn m_PowerupSpawn = default;
         [Header("-- Customer Timer values --")]
         [SerializeField] private float m_WaitDurationPerIngredient = default;
         [SerializeField] private float m_PowerUpSpawnPercentage = default;
@@ -150,6 +151,7 @@ namespace SaladChef
         private void SpawnPowerUp(PlayerController player)
         {
             Debug.Log("Powerup spawned for player " + player.gameObject.name);
+            m_PowerupSpawn.SpawnPowerup(player);
         }
 
         private void OnGameEnd()
